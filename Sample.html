@@ -1,16 +1,29 @@
-<div id="chart"></div>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://d3js.org/d3.v5.js"></script>
+  <script src="https://rawgit.com/masayuki0812/c3/master/c3.js"></script>
+  <script src="candlestick-chart-c3js.js"></script>
 
-<svg style="height: 0px;">
-  <defs> 
-    <linearGradient id="candlestickChartC3"> 
-      <stop offset="49%" style="stop-color:rgb(0,0,0);stop-opacity:0" />
-      <stop offset="50%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
-      <stop offset="51%" style="stop-color:rgb(0,0,0);stop-opacity:0" />
-    </linearGradient> 
-    
-    <linearGradient id="gradientCandlestickChartC3">
-      <stop id="candlestickUp" offset="50%" stop-color="blue" />
-      <stop id="candlestickDown" offset="50%" stop-color="green" />
-    </linearGradient>
-  </defs>
-</svg>
+  <link rel="stylesheet" type="text/css" href="https://rawgit.com/masayuki0812/c3/master/c3.css">
+  <link rel="stylesheet" type="text/css" href="candlestick-chart-c3js.css">
+</head>
+<body>
+  <div id="chart"></div>
+
+  <svg style="height: 0px;">
+    <defs> 
+      <linearGradient id="candlestickChartC3"> 
+        <stop offset="49%" style="stop-color:rgb(0,0,0);stop-opacity:0" />
+        <stop offset="50%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+        <stop offset="51%" style="stop-color:rgb(0,0,0);stop-opacity:0" />
+      </linearGradient> 
+      
+      <linearGradient id="gradientCandlestickChartC3">
+        <stop id="candlestickUp" offset="50%" stop-color="blue" />
+        <stop id="candlestickDown" offset="50%" stop-color="green" />
+      </linearGradient>
+    </defs>
+  </svg>
+</body>
+</html>
