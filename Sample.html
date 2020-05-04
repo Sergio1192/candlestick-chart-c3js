@@ -1,31 +1,96 @@
 <html>
+
 <head>
   <link rel="stylesheet" type="text/css" href="https://rawgit.com/masayuki0812/c3/master/c3.css">
   <link rel="stylesheet" type="text/css" href="candlestick-chart-c3js.css">
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-  <script src="https://d3js.org/d3.v5.js"></script>
-  <script src="https://rawgit.com/masayuki0812/c3/master/c3.js"></script>
-  
+  <script type="text/javascript" src="https://d3js.org/d3.v5.js"></script>
+  <script type="text/javascript" src="https://rawgit.com/masayuki0812/c3/master/c3.js"></script>
+  <script type="text/javascript" src="candlestick-chart-c3js.js"></script>
 </head>
+
 <body>
   <div id="chart"></div>
 
-  <svg style="height: 0px;">
-    <defs> 
-      <linearGradient id="candlestickChartC3"> 
-        <stop offset="49%" style="stop-color:rgb(0,0,0);stop-opacity:0" />
-        <stop offset="50%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
-        <stop offset="51%" style="stop-color:rgb(0,0,0);stop-opacity:0" />
-      </linearGradient> 
-      
-      <linearGradient id="gradientCandlestickChartC3">
-        <stop id="candlestickUp" offset="50%" stop-color="blue" />
-        <stop id="candlestickDown" offset="50%" stop-color="green" />
-      </linearGradient>
+  <!--<svg id="svg-candlestick-chart-c3" style="height: 0px">
+    <defs>
+      <lineargradient id="candlestickChartC3">
+        <stop style="stop-color:rgb(0,0,0);stop-opacity:0" offset="49%"></stop>
+        <stop style="stop-color:rgb(0,0,0);stop-opacity:1" offset="50%"></stop>
+        <stop style="stop-color:rgb(0,0,0);stop-opacity:0" offset="51%"></stop>
+      </lineargradient>
+      <lineargradient id="linearGradient-legend-candlestick-chart-c3">
+        <stop style="stop-color: blue" offset="50%"></stop>
+        <stop style="stop-color: red" offset="50%"></stop>
+      </lineargradient>
     </defs>
-  </svg>
+  </svg>-->
 
-  <script src="candlestick-chart-c3js.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      let realData = [];
+      for (let i = new Date('2018/01/01'); i < new Date('2018/02/01'); i.setDate(i.getDate() + 1)) {
+        let date = `${i.getFullYear()}-${i.getMonth() + 1}-${i.getDate()}T00:00:00`;
+        let data = {
+          x: date, low: 49.1, open: 50, close: 55, high: 55.9, serieOne: 61, serieTwo: 59, serieThree: 58
+        };
+        realData.push(data);
+      }
+
+      var chart = {
+        bindto: '#chart',
+        data: {
+          json: realData,
+          xFormat: '%Y-%m-%dT%H:%M:%S',
+          keys: {
+            x: "x",
+            value: [
+              "serieOne",
+              "serieTwo",
+              "serieThree"
+            ]
+          },
+          type: 'line',
+          colors: {
+            serieOne: "green",
+            serieTwo: "yellow",
+            serieThree: "red"
+          },
+          names: {
+            serieOne: '1',
+            serieTwo: '2',
+            serieThree: '3'
+          }
+        },
+        axis: {
+          x: {
+            type: 'timeseries',
+            tick: {
+              format: "%d-%m-%Y"
+            }
+          }
+        },
+        zoom: {
+          enabled: true,
+          rescale: true
+        },
+        subchart: {
+          show: true,
+          size: {
+            height: 10
+          }
+        },
+        grid: {
+          y: {
+            show: true
+          }
+        }
+      };
+
+      candlestickChart(chart, "blue", "red", "Candlestick");
+    });
+  </script>
 </body>
+
 </html>
