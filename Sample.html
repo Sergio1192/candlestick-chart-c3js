@@ -32,9 +32,17 @@
       let realData = [];
       for (let i = new Date('2018/01/01'); i < new Date('2018/02/01'); i.setDate(i.getDate() + 1)) {
         let date = `${i.getFullYear()}-${i.getMonth() + 1}-${i.getDate()}T00:00:00`;
-        let data = {
-          x: date, low: 49.1, open: 50, close: 55, high: 55.9, serieOne: 61, serieTwo: 59, serieThree: 58
-        };
+
+        let data = {};
+        if (i.getDay() % 2 == 0) {
+          data = {
+            x: date, low: 49.1, open: 50, close: 55, high: 55.9, serieOne: 61, serieTwo: 59, serieThree: 58
+          };
+        } else {
+          data = {
+            x: date, low: 45, open: 56, close: 48, high: 60, serieOne: 57, serieTwo: 58, serieThree: 59
+          };
+        }
         realData.push(data);
       }
 
