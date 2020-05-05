@@ -33,7 +33,7 @@
       }
 
       var chart = {
-        bindto: '#chart',
+        //bindto: '#chart',
         data: {
           json: realData,
           xFormat: '%Y-%m-%dT%H:%M:%S',
@@ -82,7 +82,12 @@
         }
       };
 
-      candlestickChart(chart, "blue", "red", "Candlestick");
+      $("#chart").candlestickChart({
+        chart: chart,
+        colorCloseGreaterThanOpen: "blue",
+        colorCloseLessThanOpen: "red",
+        candlestickLegendName: "Candlestick"
+      });
     });
   </script>
 </body>
