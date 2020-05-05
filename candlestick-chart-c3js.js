@@ -9,6 +9,8 @@ function candlestickChart(chart, colorUp, colorDown, candlestickName) {
     let xAxisName = chart.data.keys.x;
     let typeXAxis = chart.axis && chart.axis.x && chart.axis.x.type;
 
+    $(selector).addClass("candlestick-chart-c3");
+
     let stackedData = toStackedData(realData, xAxisName, typeXAxis);
     let data = stackedData.data, dic = stackedData.dic, min = stackedData.min;
 
@@ -22,32 +24,51 @@ function candlestickChart(chart, colorUp, colorDown, candlestickName) {
 
     bugSvgGradientColorInLine(selector);
 }
+const idGradientLegend = "linearGradient-legend-candlestick-chart-c3";
 
 // "private" functions
 function createSVG(colorUp, colorDown) {
     const idSvg = "svg-candlestick-chart-c3";
-    const idGradientLines = "linearGradient-lines-candlestick-chart-c3";
-    const idGradientLegend = "linearGradient-legend-candlestick-chart-c3";
+    const idGradientLines = "linearGradient-lines-candlestick-chart-c3"; 
 
     let svg = $("#" + idSvg);
     if (svg.length === 0) {
-        let svg = $("<svg />", { id: idSvg, style: "height: 0px" }).prependTo("body");
+        let svg = $(document.createElementNS("http://www.w3.org/2000/svg", "svg")).attr({
+            id: idSvg,
+            style: "height: 0px"
+        }).prependTo("body");
 
-        let defs = $("<defs />").appendTo(svg);
+        let defs = $(document.createElementNS("http://www.w3.org/2000/svg", "defs")).prependTo(svg);
 
-        let linearGradient1 = $("<linearGradient />", { id: idGradientLines }).appendTo(defs);
+        let linearGradient1 = $(document.createElementNS("http://www.w3.org/2000/svg", "linearGradient")).attr("id", idGradientLines).appendTo(defs);
 
-        $("<stop />", { style: "stop-color:rgb(0,0,0);stop-opacity:0" }).attr("offset", "49%").appendTo(linearGradient1);
-        $("<stop />", { style: "stop-color:rgb(0,0,0);stop-opacity:1" }).attr("offset", "50%").appendTo(linearGradient1);
-        $("<stop />", { style: "stop-color:rgb(0,0,0);stop-opacity:0" }).attr("offset", "51%").appendTo(linearGradient1);
+        $(document.createElementNS("http://www.w3.org/2000/svg", "stop")).attr({
+            style: "stop-color:rgb(0,0,0);stop-opacity:0",
+            offset: "49%"
+        }).appendTo(linearGradient1);
 
-        let linearGradient2 = $("<linearGradient />", { id: idGradientLegend }).appendTo(defs);
+        $(document.createElementNS("http://www.w3.org/2000/svg", "stop")).attr({
+            style: "stop-color:rgb(0,0,0);stop-opacity:1",
+            offset: "50%"
+        }).appendTo(linearGradient1);
 
-        $("<stop />", { style: "stop-color: " + colorUp }).attr("offset", "50%").appendTo(linearGradient2);
-        $("<stop />", { style: "stop-color: " + colorDown }).attr("offset", "50%").appendTo(linearGradient2);
+        $(document.createElementNS("http://www.w3.org/2000/svg", "stop")).attr({
+            style: "stop-color:rgb(0,0,0);stop-opacity:0",
+            offset: "51%"
+        }).appendTo(linearGradient1);
+
+        let linearGradient2 = $(document.createElementNS("http://www.w3.org/2000/svg", "linearGradient")).attr("id", idGradientLegend).appendTo(defs);
+
+        $(document.createElementNS("http://www.w3.org/2000/svg", "stop")).attr({
+            style: "stop-color: " + colorUp,
+            offset: "50%"
+        }).appendTo(linearGradient2);
+
+        $(document.createElementNS("http://www.w3.org/2000/svg", "stop")).attr({
+            style: "stop-color: " + colorDown,
+            offset: "50%"
+        }).appendTo(linearGradient2);
     }
-
-    $(".c3-bars-open path, .c3-bars-high path").css("fill", "url(#" + idGradientLines + ") !important");
 }
 
 function bugSvgGradientColorInLine(selector) {
@@ -69,7 +90,7 @@ function chartToChartWithCandlestick(chart, data, dic, colorUp, colorDown, candl
             },
             order: null,
             colors: {
-                low: "url(#linearGradient-legend-candlestick-chart-c3)",
+                low: "url(#" + idGradientLegend + ")",
                 open: colorUp,
                 close: colorUp,
                 high: colorUp
